@@ -29,8 +29,8 @@ correct_answers_index = [1, 2, 0, 3, 1]
 # Variable para administrar los puntos de usuario
 user_points=0
 
-# Genero las 3 preguntas para el juego
-questions_to_ask=random.choices(list(zip(questions,answers,correct_answers_index)),k=3)
+# Genero las 3 preguntas para el juego sin que se repitan
+questions_to_ask=random.sample(list(zip(questions,answers,correct_answers_index)),3)
 
 # El usuario deberá contestar 3 preguntas
 for x in range(3):
