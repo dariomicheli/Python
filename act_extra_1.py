@@ -10,7 +10,7 @@ continue_program=True
 
 while continue_program:
 
-    #os.system('cls')
+    os.system('cls')
 
     print("GESTIÓN DE INVENTARIOS")
     print("-"*35)
@@ -23,6 +23,7 @@ while continue_program:
     print()
 
     answer=int(input("Opción: "))
+    print()
 
     match(answer):
         case 1:
@@ -36,6 +37,7 @@ while continue_program:
             else:
                 amount=int(input("Ingrese la cantidad existente: "))
                 inventario.append((product_name.lower(),amount))
+                print("Producto agregado!")
             
         case 2:
             remove=False
@@ -52,6 +54,6 @@ while continue_program:
             for product in inventario:
                 print("Producto:",product[0]," Stock:",product[1])
         case 4:
-            continue_program=False
-    
+            exit()
     print()
+    input("Enter para continuar...")
