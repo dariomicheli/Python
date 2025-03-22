@@ -1,4 +1,5 @@
 import string
+import random
 
 zen_text = """Beautiful is better than ugly.
 Explicit is better than implicit.
@@ -80,7 +81,7 @@ def imprimir_regla(text, keyword):
 
 
 def validate_username(username):
-    if len(username) < 5:
+    if len(username) < 10:
         return False
 
     if not any(c.isdigit() for c in username):
@@ -100,7 +101,7 @@ def validate_username(username):
 def clasification(time):
     if int(time) < 200:
         return "Rápido"
-    if 200 <= int(time) <= 500:
+    if 200 <= int(time) <= 1000:
         return "Normal"
     return "Lento"
 
@@ -110,10 +111,41 @@ def clasification(time):
 def count_mentions(lista):
     dic_keyword = {"música": 0, "entretenimiento": 0, "charla": 0}
     for elem in lista:
-        dic_keyword["entretenimiento"] += elem.lower().count("entretenimiento")
-        dic_keyword["música"] += elem.lower().count("música")
-        dic_keyword["charla"] += elem.lower().count("charla")
+        words = elem.lower().split()
+        dic_keyword["entretenimiento"] += words.count("entretenimiento")
+        dic_keyword["música"] += words.count("música")
+        dic_keyword["charla"] += words.count("charla")
     print(f"Menciones de 'música': {dic_keyword.get("música")}\nMenciones de 'charla': {dic_keyword.get("charla")}\nMenciones de 'entretenimiento': {dic_keyword.get("entretenimiento")}")
+
+# Genera codigo de descuento
+
+
+def generate_random_string(lenght):
+    return "".join(random.choices(string.ascii_letters + string.digits, k=lenght))
+
+
+def code_discount(username, date):
+    code_length = 30
+
+    if len(username) > 110:
+        print("El usuario excede los 110 caracteres")
+        return
+
+    code = username.upper() + "-" + date.replace("-", "").upper() + "-"
+    word_amount = len(code)
+    if word_amount < code_length:
+        random_string = generate_random_string(code_length-word_amount)
+        code += random_string.upper()
+    print(f"Código de descuento: {code}")
+
+# Determina si 2 palabras son anagramas
+
+
+def validar_anagrama(word1, word2):
+    if len(word1) != len(word2):
+        return False
+
+    return sorted(word1.lower()) == sorted(word2.lower())
 
 
 # imprimir_vocal(zen_text)
@@ -125,4 +157,109 @@ else:
     print("El nombre de usuario no cumple con los requisitos") """
 
 # print(f"Categoria: {clasification(input("Ingrese su tiempo de reacción:"))}")
-count_mentions(descriptions)
+# count_mentions(descriptions)
+
+# code_discount(input("Usuario: "), "20210-04-10")
+
+""" word1 = input("Ingrese la primera palabra: ")
+word2 = input("Ingrese la segunda palabra: ")
+if validar_anagrama(word1, word2):
+    print("Son anagramas")
+else:
+    print("No son anagramas") """
+
+
+def clean_name(list):
+    list_names = []
+    set_names = set()
+    for full_name in list:
+        if full_name not in (None, " ", ""):
+            name, surname = full_name.split()
+            set_names.add(name.lower().capitalize() +
+                          " " + surname.lower().capitalize())
+    for full_name in set_names:
+        list_names.append(full_name)
+        list_names.sort()
+    print(list_names)
+
+
+clients = [
+    " Ana López ", "Pedro Gómez", "maria martínez", "Pedro Gómez ", "",
+    " Luis Rodríguez ", None, "ana lópez", "JUAN PÉREZ", "MARTA SUÁREZ",
+    "luis rodríguez", "maría martínez ", " claudia torres", "CLAUDIA TORRES",
+    " ", "pedro gómez", "Juan Pérez", None, "Ricardo Fernández", "LAURA RAMOS",
+    "carlos mendes", "RICARDO FERNÁNDEZ ", " Laura ramos", "CARLOS MENDES",
+    "alejandro gonzález", " ALEJANDRO GONZÁLEZ ", "Patricia Vega",
+    "patricia VEGA", "Andrés Ocampo", " andrés ocampo", "Monica Herrera",
+    "MONICA HERRERA ", "gabriela ruíz", "Gabriela Ruíz", "sandra morales",
+    "SANDRA MORALES", "miguel ángel", "Miguel Ángel ", " Damián Castillo",
+    "Damián Castillo ", None, "", " "
+]
+
+
+# clean_name(clients)
+
+rounds = [
+    {
+        'Shadow': {'kills': 2, 'assists': 1, 'deaths': True},
+        'Blaze': {'kills': 1, 'assists': 0, 'deaths': False},
+        'Viper': {'kills': 1, 'assists': 2, 'deaths': True},
+        'Frost': {'kills': 0, 'assists': 1, 'deaths': False},
+        'Reaper': {'kills': 1, 'assists': 1, 'deaths': False}
+    },
+    {
+        'Shadow': {'kills': 0, 'assists': 2, 'deaths': False},
+        'Blaze': {'kills': 2, 'assists': 0, 'deaths': True},
+        'Viper': {'kills': 1, 'assists': 1, 'deaths': False},
+        'Frost': {'kills': 2, 'assists': 1, 'deaths': True},
+        'Reaper': {'kills': 0, 'assists': 1, 'deaths': False}
+    },
+    {
+        'Shadow': {'kills': 1, 'assists': 0, 'deaths': False},
+        'Blaze': {'kills': 2, 'assists': 2, 'deaths': True},
+        'Viper': {'kills': 1, 'assists': 1, 'deaths': True},
+        'Frost': {'kills': 0, 'assists': 1, 'deaths': False},
+        'Reaper': {'kills': 1, 'assists': 1, 'deaths': False}
+    },
+    {
+        'Shadow': {'kills': 2, 'assists': 1, 'deaths': False},
+        'Blaze': {'kills': 1, 'assists': 0, 'deaths': True},
+        'Viper': {'kills': 0, 'assists': 2, 'deaths': False},
+        'Frost': {'kills': 1, 'assists': 1, 'deaths': True},
+        'Reaper': {'kills': 1, 'assists': 1, 'deaths': False}
+    },
+    {
+        'Shadow': {'kills': 1, 'assists': 2, 'deaths': True},
+        'Blaze': {'kills': 0, 'assists': 1, 'deaths': False},
+        'Viper': {'kills': 2, 'assists': 0, 'deaths': True},
+        'Frost': {'kills': 1, 'assists': 1, 'deaths': False},
+        'Reaper': {'kills': 1, 'assists': 1, 'deaths': True}
+    }
+]
+
+POINTS = {"kills": 3, "assists": 1, "deaths": -1}
+
+
+def rank_header():
+    print("Ranking ronda ")
+    print(f"\n{"Jugador":^10} {"Kills":^10} {"Asistencias":^10} {"Muertes":^10} {"MVPs":^10} {"Puntos":^10}")
+    print("-"*70)
+
+
+def rank_round(round_data, player_total_points):
+
+    rank_header()
+    for player in round_data:
+        print(round_data[player])
+
+
+player_total_points = {
+    'Shadow': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0},
+    'Blaze': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0},
+    'Viper': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0},
+    'Frost': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0},
+    'Reaper': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0}
+}
+
+for round in rounds:
+    rank_round(round, player_total_points)
