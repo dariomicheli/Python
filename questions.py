@@ -27,39 +27,40 @@ answers = [
 correct_answers_index = [1, 2, 0, 3, 1]
 
 # Variable para administrar los puntos de usuario
-user_points=0
+user_points = 0
 
 # Genero las 3 preguntas para el juego sin que se repitan
-questions_to_ask=random.sample(list(zip(questions,answers,correct_answers_index)),3)
+questions_to_ask = random.sample(
+    list(zip(questions, answers, correct_answers_index)), 3)
 
 # El usuario deberá contestar 3 preguntas
 for x in range(3):
 
-    question=questions_to_ask[x][0]
-    answers_for_question=questions_to_ask[x][1]
-    correct_answer=questions_to_ask[x][2]
+    question = questions_to_ask[x][0]
+    answers_for_question = questions_to_ask[x][1]
+    correct_answer = questions_to_ask[x][2]
 
-    #Muestro pregunta y posibles respuestas
+    # Muestro pregunta y posibles respuestas
     print(question)
     for i, answer in enumerate(answers_for_question):
         print(f"{i + 1}. {answer}")
-    
+
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
-        user_answer=input("Respuesta: ")
+        user_answer = input("Respuesta: ")
         if user_answer.isdigit():
-            user_answer=int(user_answer)-1
-            if user_answer>=0 and user_answer<4:
+            user_answer = int(user_answer)-1
+            if user_answer >= 0 and user_answer < 4:
                 # Se verifica si la respuesta es correcta
-                if user_answer==correct_answer:
-                    user_points+=1
+                if user_answer == correct_answer:
+                    user_points += 1
                     print("¡Correcto!")
                     break
                 else:
                     # Si el usuario no responde correctamente después de 2 intentos,
                     # se muestra la respuesta correcta
-                    if user_points>=0.5:
-                        user_points-=0.5
+                    if user_points >= 0.5:
+                        user_points -= 0.5
                     print("Incorrecto. La respuesta correcta es:")
                     print(answers_for_question[correct_answer])
                 # Se imprime un blanco al final de la pregunta
@@ -71,5 +72,5 @@ for x in range(3):
             print("Repuesta no valida")
             exit(1)
 
-#Imprimo puntaje total del juego
-print("Puntaje total: ",user_points)
+# Imprimo puntaje total del juego
+print("Puntaje total: ", user_points)
