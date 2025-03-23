@@ -240,20 +240,71 @@ rounds = [
 POINTS = {"kills": 3, "assists": 1, "deaths": -1}
 
 
-def rank_header():
-    print("Ranking ronda ")
+def print_header(round_number):
+    print(f"\nRanking ronda {round_number}")
     print(f"\n{"Jugador":^10} {"Kills":^10} {"Asistencias":^10} {"Muertes":^10} {"MVPs":^10} {"Puntos":^10}")
     print("-"*70)
 
 
-def rank_round(round_data, player_total_points):
+def calculate_points(round_table):
+    for player in round_table:
+        round_table[player]["points"] = round_table[player].get("kills") * POINTS.get("kills") + \
+            round_table[player].get("assists") * POINTS.get("assists") + \
+            round_table[player].get("deaths") * POINTS.get("deaths")
 
-    rank_header()
-    for player in round_data:
-        print(round_data[player])
+
+def determine_mvp(round_table):
+    mvp = max(round_table, key=lambda x: round_table[x]["points"])
+    round_table[mvp]["mvps"] = 1
 
 
-player_total_points = {
+def round_resume(round):
+    round_table = {}
+    for player in round:
+        round_table[player] = {
+            "kills": round[player].get("kills"),
+            "assists": round[player].get("assists"),
+            "deaths": 1 if round[player].get("deaths") == True else 0,
+            "mvps": 0,
+            "points": 0
+        }
+    calculate_points(round_table)
+    determine_mvp(round_table)
+    return round_table
+
+
+def update_global_table(global_table, round_table):
+    for player in global_table:
+        global_table[player]["kills"] += round_table[player]["kills"]
+        global_table[player]["assists"] += round_table[player]["assists"]
+        global_table[player]["deaths"] += round_table[player]["deaths"]
+        global_table[player]["mvps"] += round_table[player]["mvps"]
+        global_table[player]["points"] += round_table[player]["points"]
+
+
+def print_round_table(round_table):
+    round_table_sorted = sorted(
+        round_table.items(), key=lambda x: x[1]["points"], reverse=True)
+    for player, stats in round_table_sorted:
+        print(f"{player:^10} {stats.get('kills'):^10} {stats.get('assists'):^10} {stats.get('deaths'):^10} {stats.get('mvps'):^10} {stats.get('points'):^10}")
+    print("-"*70)
+
+
+def round_stats(round, round_number, global_table):
+
+    print_header(round_number)
+    round_table = round_resume(round)
+    update_global_table(global_table, round_table)
+    print_round_table(round_table)
+
+
+def print_global_table(global_table):
+
+    print_header("Final")
+    print_round_table(global_table)
+
+
+global_table = {
     'Shadow': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0},
     'Blaze': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0},
     'Viper': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0},
@@ -261,5 +312,8 @@ player_total_points = {
     'Reaper': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0}
 }
 
+round_number = 0
 for round in rounds:
-    rank_round(round, player_total_points)
+    round_number += 1
+    round_stats(round, round_number, global_table)
+print_global_table(global_table)
