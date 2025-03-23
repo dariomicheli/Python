@@ -1,3 +1,4 @@
+import game
 import string
 import random
 
@@ -44,6 +45,57 @@ descriptions = [
     "Música en directo con improvisaciones y peticiones del chat",
     "Un espacio para charlar relajada sobre tecnología y cultura digital",
     "Exploramos el impacto de la música en los videojuegos clásicos"
+]
+
+clients = [
+    " Ana López ", "Pedro Gómez", "maria martínez", "Pedro Gómez ", "",
+    " Luis Rodríguez ", None, "ana lópez", "JUAN PÉREZ", "MARTA SUÁREZ",
+    "luis rodríguez", "maría martínez ", " claudia torres", "CLAUDIA TORRES",
+    " ", "pedro gómez", "Juan Pérez", None, "Ricardo Fernández", "LAURA RAMOS",
+    "carlos mendes", "RICARDO FERNÁNDEZ ", " Laura ramos", "CARLOS MENDES",
+    "alejandro gonzález", " ALEJANDRO GONZÁLEZ ", "Patricia Vega",
+    "patricia VEGA", "Andrés Ocampo", " andrés ocampo", "Monica Herrera",
+    "MONICA HERRERA ", "gabriela ruíz", "Gabriela Ruíz", "sandra morales",
+    "SANDRA MORALES", "miguel ángel", "Miguel Ángel ", " Damián Castillo",
+    "Damián Castillo ", None, "", " "
+]
+
+rounds = [
+    {
+        'Shadow': {'kills': 2, 'assists': 1, 'deaths': True},
+        'Blaze': {'kills': 1, 'assists': 0, 'deaths': False},
+        'Viper': {'kills': 1, 'assists': 2, 'deaths': True},
+        'Frost': {'kills': 0, 'assists': 1, 'deaths': False},
+        'Reaper': {'kills': 1, 'assists': 1, 'deaths': False}
+    },
+    {
+        'Shadow': {'kills': 0, 'assists': 2, 'deaths': False},
+        'Blaze': {'kills': 2, 'assists': 0, 'deaths': True},
+        'Viper': {'kills': 1, 'assists': 1, 'deaths': False},
+        'Frost': {'kills': 2, 'assists': 1, 'deaths': True},
+        'Reaper': {'kills': 0, 'assists': 1, 'deaths': False}
+    },
+    {
+        'Shadow': {'kills': 1, 'assists': 0, 'deaths': False},
+        'Blaze': {'kills': 2, 'assists': 2, 'deaths': True},
+        'Viper': {'kills': 1, 'assists': 1, 'deaths': True},
+        'Frost': {'kills': 0, 'assists': 1, 'deaths': False},
+        'Reaper': {'kills': 1, 'assists': 1, 'deaths': False}
+    },
+    {
+        'Shadow': {'kills': 2, 'assists': 1, 'deaths': False},
+        'Blaze': {'kills': 1, 'assists': 0, 'deaths': True},
+        'Viper': {'kills': 0, 'assists': 2, 'deaths': False},
+        'Frost': {'kills': 1, 'assists': 1, 'deaths': True},
+        'Reaper': {'kills': 1, 'assists': 1, 'deaths': False}
+    },
+    {
+        'Shadow': {'kills': 1, 'assists': 2, 'deaths': True},
+        'Blaze': {'kills': 0, 'assists': 1, 'deaths': False},
+        'Viper': {'kills': 2, 'assists': 0, 'deaths': True},
+        'Frost': {'kills': 1, 'assists': 1, 'deaths': False},
+        'Reaper': {'kills': 1, 'assists': 1, 'deaths': True}
+    }
 ]
 
 # Imprime las oraciones cuya segunda palabra empieza con vocal.
@@ -127,8 +179,8 @@ def generate_random_string(lenght):
 def code_discount(username, date):
     code_length = 30
 
-    if len(username) > 110:
-        print("El usuario excede los 110 caracteres")
+    if len(username) > 15:
+        print("El usuario excede los 15 caracteres")
         return
 
     code = username.upper() + "-" + date.replace("-", "").upper() + "-"
@@ -147,26 +199,7 @@ def validar_anagrama(word1, word2):
 
     return sorted(word1.lower()) == sorted(word2.lower())
 
-
-# imprimir_vocal(zen_text)
-# imprimir_mas_palabras(titles)
-# imprimir_regla(rules, "moderadores")
-""" if validate_username(input("Ingrese un nombre de usuario:")):
-    print("El nombre de usuario es valido")
-else:
-    print("El nombre de usuario no cumple con los requisitos") """
-
-# print(f"Categoria: {clasification(input("Ingrese su tiempo de reacción:"))}")
-# count_mentions(descriptions)
-
-# code_discount(input("Usuario: "), "20210-04-10")
-
-""" word1 = input("Ingrese la primera palabra: ")
-word2 = input("Ingrese la segunda palabra: ")
-if validar_anagrama(word1, word2):
-    print("Son anagramas")
-else:
-    print("No son anagramas") """
+# Limpia los nombres de una lista
 
 
 def clean_name(list):
@@ -183,126 +216,47 @@ def clean_name(list):
     print(list_names)
 
 
-clients = [
-    " Ana López ", "Pedro Gómez", "maria martínez", "Pedro Gómez ", "",
-    " Luis Rodríguez ", None, "ana lópez", "JUAN PÉREZ", "MARTA SUÁREZ",
-    "luis rodríguez", "maría martínez ", " claudia torres", "CLAUDIA TORRES",
-    " ", "pedro gómez", "Juan Pérez", None, "Ricardo Fernández", "LAURA RAMOS",
-    "carlos mendes", "RICARDO FERNÁNDEZ ", " Laura ramos", "CARLOS MENDES",
-    "alejandro gonzález", " ALEJANDRO GONZÁLEZ ", "Patricia Vega",
-    "patricia VEGA", "Andrés Ocampo", " andrés ocampo", "Monica Herrera",
-    "MONICA HERRERA ", "gabriela ruíz", "Gabriela Ruíz", "sandra morales",
-    "SANDRA MORALES", "miguel ángel", "Miguel Ángel ", " Damián Castillo",
-    "Damián Castillo ", None, "", " "
-]
+# Ejecicio 1
 
+imprimir_vocal(zen_text)
 
-# clean_name(clients)
+# Ejercicio 2
+imprimir_mas_palabras(titles)
 
-rounds = [
-    {
-        'Shadow': {'kills': 2, 'assists': 1, 'deaths': True},
-        'Blaze': {'kills': 1, 'assists': 0, 'deaths': False},
-        'Viper': {'kills': 1, 'assists': 2, 'deaths': True},
-        'Frost': {'kills': 0, 'assists': 1, 'deaths': False},
-        'Reaper': {'kills': 1, 'assists': 1, 'deaths': False}
-    },
-    {
-        'Shadow': {'kills': 0, 'assists': 2, 'deaths': False},
-        'Blaze': {'kills': 2, 'assists': 0, 'deaths': True},
-        'Viper': {'kills': 1, 'assists': 1, 'deaths': False},
-        'Frost': {'kills': 2, 'assists': 1, 'deaths': True},
-        'Reaper': {'kills': 0, 'assists': 1, 'deaths': False}
-    },
-    {
-        'Shadow': {'kills': 1, 'assists': 0, 'deaths': False},
-        'Blaze': {'kills': 2, 'assists': 2, 'deaths': True},
-        'Viper': {'kills': 1, 'assists': 1, 'deaths': True},
-        'Frost': {'kills': 0, 'assists': 1, 'deaths': False},
-        'Reaper': {'kills': 1, 'assists': 1, 'deaths': False}
-    },
-    {
-        'Shadow': {'kills': 2, 'assists': 1, 'deaths': False},
-        'Blaze': {'kills': 1, 'assists': 0, 'deaths': True},
-        'Viper': {'kills': 0, 'assists': 2, 'deaths': False},
-        'Frost': {'kills': 1, 'assists': 1, 'deaths': True},
-        'Reaper': {'kills': 1, 'assists': 1, 'deaths': False}
-    },
-    {
-        'Shadow': {'kills': 1, 'assists': 2, 'deaths': True},
-        'Blaze': {'kills': 0, 'assists': 1, 'deaths': False},
-        'Viper': {'kills': 2, 'assists': 0, 'deaths': True},
-        'Frost': {'kills': 1, 'assists': 1, 'deaths': False},
-        'Reaper': {'kills': 1, 'assists': 1, 'deaths': True}
-    }
-]
+# Ejercicio 3
+imprimir_regla(rules, "moderadores")
 
-POINTS = {"kills": 3, "assists": 1, "deaths": -1}
+# Ejercicio 4
+if validate_username(input("Ingrese un nombre de usuario:")):
+    print("El nombre de usuario es valido")
+else:
+    print("El nombre de usuario no cumple con los requisitos")
 
+# Ejercicio 5
 
-def print_header(round_number):
-    print(f"\nRanking ronda {round_number}")
-    print(f"\n{"Jugador":^10} {"Kills":^10} {"Asistencias":^10} {"Muertes":^10} {"MVPs":^10} {"Puntos":^10}")
-    print("-"*70)
+print(f"Categoria: {clasification(input("Ingrese su tiempo de reacción:"))}")
 
+# Ejercicio 6
+count_mentions(descriptions)
 
-def calculate_points(round_table):
-    for player in round_table:
-        round_table[player]["points"] = round_table[player].get("kills") * POINTS.get("kills") + \
-            round_table[player].get("assists") * POINTS.get("assists") + \
-            round_table[player].get("deaths") * POINTS.get("deaths")
+# Ejercicio 7
 
+code_discount(input("Usuario: "), "20210-04-10")
 
-def determine_mvp(round_table):
-    mvp = max(round_table, key=lambda x: round_table[x]["points"])
-    round_table[mvp]["mvps"] = 1
+# Ejercicio 8
 
+word1 = input("Ingrese la primera palabra: ")
+word2 = input("Ingrese la segunda palabra: ")
+if validar_anagrama(word1, word2):
+    print("Son anagramas")
+else:
+    print("No son anagramas")
 
-def round_resume(round):
-    round_table = {}
-    for player in round:
-        round_table[player] = {
-            "kills": round[player].get("kills"),
-            "assists": round[player].get("assists"),
-            "deaths": 1 if round[player].get("deaths") == True else 0,
-            "mvps": 0,
-            "points": 0
-        }
-    calculate_points(round_table)
-    determine_mvp(round_table)
-    return round_table
+# Ejercicio 9
 
+clean_name(clients)
 
-def update_global_table(global_table, round_table):
-    for player in global_table:
-        global_table[player]["kills"] += round_table[player]["kills"]
-        global_table[player]["assists"] += round_table[player]["assists"]
-        global_table[player]["deaths"] += round_table[player]["deaths"]
-        global_table[player]["mvps"] += round_table[player]["mvps"]
-        global_table[player]["points"] += round_table[player]["points"]
-
-
-def print_round_table(round_table):
-    round_table_sorted = sorted(
-        round_table.items(), key=lambda x: x[1]["points"], reverse=True)
-    for player, stats in round_table_sorted:
-        print(f"{player:^10} {stats.get('kills'):^10} {stats.get('assists'):^10} {stats.get('deaths'):^10} {stats.get('mvps'):^10} {stats.get('points'):^10}")
-    print("-"*70)
-
-
-def round_stats(round, round_number, global_table):
-
-    print_header(round_number)
-    round_table = round_resume(round)
-    update_global_table(global_table, round_table)
-    print_round_table(round_table)
-
-
-def print_global_table(global_table):
-
-    print_header("Final")
-    print_round_table(global_table)
-
+# Ejercicio 10
 
 global_table = {
     'Shadow': {'kills': 0, 'assists': 0, 'deaths': 0, 'mvps': 0, 'points': 0},
@@ -315,5 +269,5 @@ global_table = {
 round_number = 0
 for round in rounds:
     round_number += 1
-    round_stats(round, round_number, global_table)
-print_global_table(global_table)
+    game.round_stats(round, round_number, global_table)
+game.print_global_table(global_table)
